@@ -1,5 +1,5 @@
 """
-WSGI config for stackpictures project.
+WSGI config for stockpictures project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

@@ -1,0 +1,47 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>
+            {% block title %}
+            {% endblock %}
+        </title>
+
+        <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.css" %}">
+        <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap-theme.css" %}">
+
+        {% block link %}
+        {% endblock %}
+
+
+        <script src="{% static "jquery/jquery.min.js" %}">
+        </script><script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+
+        {% block script %}
+        {% endblock %}
+    </head>
+    
+    <body>
+        {% block head %}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-4"><a href="{% url 'index' %}">index</a><br></div>
+                    <div class="col-xs-4"></div>
+                    <div class="col-xs-4 text-right">
+                        {% if user.is_authenticated %}
+                            <a href={% url 'logout' %}> logout </a>
+                            <a href={% url 'profile' %}> profile </a>
+                        {% else %}
+                            <a href={% url 'login' %}> login </a>
+                            <a href={% url 'registration' %}> registration </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>

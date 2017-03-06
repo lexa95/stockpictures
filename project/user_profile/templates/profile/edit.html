@@ -1,0 +1,16 @@
+{% extends "account_base.html" %}
+
+{% block title %}
+    PROFILE EDIT
+{% endblock %}
+
+{% block content %}
+    <h2>PROFILE EDIT</h2>
+
+    <form action="." method="post" enctype="multipart/form-data">    
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Save changes"></p>  
+    </form>
+{% endblock %}
