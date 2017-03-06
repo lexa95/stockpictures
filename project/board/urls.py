@@ -1,10 +1,10 @@
 from django.conf.urls import url
 from .views import board, boards
-
+from .api import BoardUser, SubscriptionBoardUser
 
 urlpatterns = [
-    # url(r'^api/board-user/$', BoardList.as_view()),
-    # url(r'^api/board-user-subscription/$', BoardSubscriptionList.as_view()),
+    url(r'^api/board-user/$', BoardUser.as_view()),
+    url(r'^api/board-user-subscription/$', SubscriptionBoardUser.as_view()),
     # url(r'^api/add-board/$', AddBoard.as_view()),
 
     url(r'^(?P<username>[-\w]+)/(?P<boardname>[A-Za-z0-9_-]+)/$',
