@@ -23,3 +23,34 @@ class UserProfile(APIView):
         except:
             return Response(
                 status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserProfileList(APIView):
+
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request):
+        try:
+            profile = Profile.objects.all()
+            serializer = ProfileSerializer(profile, many=True)
+            return Response(serializer.data)
+
+        except:
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserProfileAuth(APIView):
+
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self, request):
+        try:
+            user = request.user
+            profile = Profile.objects.get(user=user)
+            serializer = ProfileSerializer(profile)
+            return Response(serializer.data)
+
+        except:
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST)
