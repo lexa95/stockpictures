@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'account',
     'user_profile',
     'board',
+    'picture',
 ]
 
 MIDDLEWARE = [

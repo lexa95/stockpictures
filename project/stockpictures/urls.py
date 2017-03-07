@@ -18,6 +18,7 @@ from django.contrib import admin
 from account import urls as account_urls
 from user_profile import urls as user_profile_urls
 from board import urls as board_urls
+from picture import urls as picture_urls
 from account.views import index
 from django.conf import settings
 from django.conf.urls.static import static
@@ -28,6 +29,7 @@ urlpatterns = [
     url(r'^account/', include(account_urls)),
     url(r'^profile/', include(user_profile_urls)),
     url(r'^board/', include(board_urls)),
+    url(r'^picture/', include(picture_urls)),
     url(r'^api-auth/',
         include('rest_framework.urls', namespace='rest_framework'))
 ]
