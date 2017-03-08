@@ -16,7 +16,7 @@ var UserInformations = React.createClass({
             },
             async:false,
         });
-        console.log(profile)
+        
         return {profile: profile};
     },
     

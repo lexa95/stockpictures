@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
 from rest_framework import permissions
+from django.http import JsonResponse
+from django.db.utils import IntegrityError
 
 
 class BoardUser(APIView):
@@ -38,5 +40,30 @@ class SubscriptionBoardUser(APIView):
             return Response(serializer.data)
 
         except:
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST)
+
+
+class AddBoard(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request):
+        try:
+            name = request.POST['name']
+            secret = request.POST['secret'] == 'true'
+
+            print(secret)
+            new_board = Board(name=name, secret=secret, user=request.user)
+            new_board.save()
+
+            return JsonResponse({'status': 'ok'})
+
+        except IntegrityError:
+            return JsonResponse(
+                {'status': 'you already have a Board with that name'},
+                status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception as e:
+            print(type(e))
             return Response(
                 status=status.HTTP_400_BAD_REQUEST)
