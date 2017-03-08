@@ -1,0 +1,12 @@
+.image_profile_circle{
+    height: 250px;
+    width: 250px;
+    border-radius: 125px;
+    background-position:50% 50%;
+    background-repeat:no-repeat;
+    background-size: 250px;
+}
+
+.name_block{
+    padding: 0px 15px; 
+}

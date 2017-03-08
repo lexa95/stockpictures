@@ -1,11 +1,33 @@
 {% extends "account_base.html" %}
 
+{% load staticfiles %}
+
 {% block title %}
     BOARDS
 {% endblock %}
 
+{% block link %}
+    <link rel="stylesheet" href="{% static "css/profile/broad_preview.css" %}">
+{% endblock %}
+
 {% block content %}
     
-    <h2>BOARDS</h2>
+    <div id="user-information">
+
+    </div>
+
+    <div id='navigation'>
+
+    </div>
+
+    <div id='boards'>
+
+    </div>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+
+    <script src="{% static "js/profile/broad_preview.jsx" %}" type="text/babel"></script>
+    <script src="{% static "js/board/boards.jsx" %}" type="text/babel"></script>
 {% endblock %}

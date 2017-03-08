@@ -12,4 +12,3 @@ urlpatterns = [
     url(r'^api/user_profile_auth/$', UserProfileAuth.as_view(),
         name='user_profile_auth'),
 ]
-
