@@ -4,9 +4,21 @@ from django.forms import ValidationError
 from django import forms
 from django.core.exceptions import ValidationError
 # Create your models here.
+from uuid import uuid4
+import os
+
+
+def generate_url(model):
+    identification = uuid4().hex
+
+    while model.objects.filter(identification=identification).exists():
+        identification = uuid4().hex
+
+    return identification
 
 
 class Board(models.Model):
+    identification = models.SlugField(unique=True, blank=True, null=True)
     user = models.ForeignKey(User)
     name = models.CharField(max_length=30)
     created_date = models.DateField(auto_now_add=True)
@@ -18,6 +30,11 @@ class Board(models.Model):
 
     class Meta:
         unique_together = (("user", "name"),)
+
+    def save(self, *args, **kwargs):
+        if(self.identification == '' or self.identification is None):
+            self.identification = generate_url(Board)
+        super(Board, self).save(*args, **kwargs)
 
 
 class Subscription(models.Model):

@@ -16,10 +16,10 @@ class PictureInBoard(APIView):
     def get(self, request):
         try:
             username = request.GET['username']
-            user = User.objects.get(username=username)
+            board_identification = request.GET['identification']
 
-            boardname = request.GET['boardname']
-            board = Board.objects.get(user=user, name=boardname)
+            board = Board.objects.get(user__username=username,
+                                      identification=board_identification)
 
             pictures_in_board = InBoard.objects.filter(board=board)
             serializer = PicturesInBoardSerializer(pictures_in_board,
@@ -36,14 +36,14 @@ class LikePicture(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request):
-        # try:
-        identification = request.GET['identification']
-        picture = Picture.objects.get(identification=identification)
-        liked_users = Like.objects.filter(picture=picture)
+        try:
+            identification = request.GET['identification']
+            picture = Picture.objects.get(identification=identification)
+            liked_users = Like.objects.filter(picture=picture)
 
-        serializer = LikeSerializer(liked_users, many=True)
-        return Response(serializer.data)
+            serializer = LikeSerializer(liked_users, many=True)
+            return Response(serializer.data)
 
-        # except:
-        #     return Response(
-        #         status=status.HTTP_400_BAD_REQUEST)
+        except:
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST)

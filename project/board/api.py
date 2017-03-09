@@ -12,7 +12,7 @@ from django.db.utils import IntegrityError
 
 class BoardUser(APIView):
 
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get(self, request):
         try:
@@ -35,6 +35,7 @@ class SubscriptionBoardUser(APIView):
         try:
             username = request.GET['username']
             user = User.objects.get(username=username)
+            print(user)
             subscription = Subscription.objects.filter(user=user)
             serializer = SubscriptionSerializer(subscription, many=True)
             return Response(serializer.data)
@@ -52,7 +53,6 @@ class AddBoard(APIView):
             name = request.POST['name']
             secret = request.POST['secret'] == 'true'
 
-            print(secret)
             new_board = Board(name=name, secret=secret, user=request.user)
             new_board.save()
 
@@ -64,6 +64,71 @@ class AddBoard(APIView):
                 status=status.HTTP_400_BAD_REQUEST)
 
         except Exception as e:
-            print(type(e))
             return Response(
                 status=status.HTTP_400_BAD_REQUEST)
+
+
+class EditBoard(APIView):
+
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request):
+        try:
+            name = request.POST['name']
+            secret = request.POST['secret'] == 'true'
+            oldname = request.POST['oldname']
+
+            board = Board.objects.get(user=request.user, name=oldname)
+            board.name = name
+            board.secret = secret
+            board.save()
+
+            return JsonResponse({'status': 'ok'})
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class RemodeBoard(APIView):
+
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request):
+        try:
+            name = request.POST['name']
+            board = Board.objects.get(user=request.user, name=name)
+
+            board.delete()
+
+            return JsonResponse({'status': 'ok'})
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class UnsubscribeBoard(APIView):
+    permission_classes = (permissions.IsAuthenticated, )
+
+    def post(self, request):
+        try:
+            identification = request.POST['identification']
+
+            subscribe = Subscription.objects.get(
+                board__identification=identification, user=request.user)
+            subscribe.delete()
+            return JsonResponse({'status': 'ok'})
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+class SubscribeBoard(APIView):
+    permission_classes = (permissions.IsAuthenticated, )
+
+    def post(self, request):
+        try:
+            identification = request.POST['identification']
+            board = Board.objects.get(identification=identification)
+
+            subscribe = Subscription(board=board, user=request.user)
+            subscribe.save()
+            return JsonResponse({'status': 'ok'})
+        except:
+            return Response(status=status.HTTP_400_BAD_REQUEST)

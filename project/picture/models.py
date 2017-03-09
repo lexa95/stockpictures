@@ -16,8 +16,7 @@ def generate_slug(model):
 
 
 class Picture(models.Model):
-    identification = models.SlugField(unique=True, verbose_name='URL Slug',
-                                      blank=True, null=True)
+    identification = models.SlugField(unique=True, blank=True, null=True)
     user = models.ForeignKey(User)
     resource_url = models.URLField()
     url = models.URLField()
@@ -29,7 +28,8 @@ class Picture(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.identification = generate_slug(Picture)
+        if(self.identification == ''):
+            self.identification = generate_slug(Picture)
         super(Picture, self).save(*args, **kwargs)
 
     class Meta:

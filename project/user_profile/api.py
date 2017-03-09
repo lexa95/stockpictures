@@ -10,7 +10,7 @@ from rest_framework import permissions
 
 class UserProfile(APIView):
 
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get(self, request):
         try:

@@ -1,0 +1,50 @@
+.image_profile_circle{
+    height: 250px;
+    width: 250px;
+    border-radius: 125px;
+    background-position:50% 50%;
+    background-repeat:no-repeat;
+    background-size: 250px;
+}
+
+.name_block{
+    padding: 0px 15px; 
+}
+
+.add-new-board-dialog{
+    border-radius: 0px;
+    box-shadow: none;
+    border: none;
+}
+
+.required{
+    width: 100px;
+}
+
+.btn-edit{
+    background: white;
+    border: none;
+    font-size: 18px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.btn-subscriptions{
+    background: #cd3e3e;
+    border: none;
+    font-size: 18px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.btn-unsubscriptions{
+    background: white;
+    border: none;
+    font-size: 18px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.block-board{
+    height: 260px;
+}
