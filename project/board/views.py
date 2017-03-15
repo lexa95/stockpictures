@@ -5,7 +5,7 @@ def boards(request, username):
     return render(request, 'board/boards.html')
 
 
-def board(request, username, boardid):
+def board(request, boardid):
     return render(request, 'board/board.html')
 
 

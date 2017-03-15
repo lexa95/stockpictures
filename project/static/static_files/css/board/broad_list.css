@@ -48,3 +48,18 @@
 .block-board{
     height: 260px;
 }
+
+.nav-menu-user{
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.nav-menu-user > a{
+    margin: 0px 30px;
+    font-size: 18px;
+    color: #2c4758;
+}
+
+.active{
+    text-decoration-line: line-through;
+}

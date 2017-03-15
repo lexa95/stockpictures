@@ -46,3 +46,14 @@
 #navigation{
     height:  30px;
 }
+
+.scroll-div{
+    width: 150px;
+    height: 150px;
+    overflow: scroll;
+}
+
+.block-s{
+    /*background-color: black;*/
+    /*height:300px;*/
+}

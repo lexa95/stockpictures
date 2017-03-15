@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^$', index, name='index'),
     url(r'^admin/', admin.site.urls),
     url(r'^account/', include(account_urls)),
-    url(r'^profile/', include(user_profile_urls)),
+    url(r'^user/', include(user_profile_urls)),
     url(r'^board/', include(board_urls)),
     url(r'^picture/', include(picture_urls)),
     url(r'^api-auth/',

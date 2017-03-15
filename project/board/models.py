@@ -21,7 +21,7 @@ class Board(models.Model):
     identification = models.SlugField(unique=True, blank=True, null=True)
     user = models.ForeignKey(User)
     name = models.CharField(max_length=30)
-    created_date = models.DateField(auto_now_add=True)
+    created_date = models.DateTimeField(auto_now_add=True)
     secret = models.BooleanField(default=False)
     cover = models.ImageField(upload_to='board', default='board/none.jpg')
 
@@ -40,7 +40,8 @@ class Board(models.Model):
 class Subscription(models.Model):
     user = models.ForeignKey(User)
     board = models.ForeignKey(Board)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
+    # models.DateTimeField auto_now_add=True
 
     def __str__(self):
         return self.user.username + '->' + self.board.name

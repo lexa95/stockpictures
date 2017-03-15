@@ -22,7 +22,8 @@ class Picture(models.Model):
     url = models.URLField()
     name = models.CharField(max_length=30, blank=True, null=True)
     description = models.TextField(max_length=200, blank=True, null=True)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
+    # auto_now_add=True
 
     def __str__(self):
         return self.name
@@ -39,7 +40,8 @@ class Picture(models.Model):
 class Like(models.Model):
     picture = models.ForeignKey(Picture)
     user = models.ForeignKey(User)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
+    # auto_now_add=True
 
     def __str__(self):
         return self.user.username + ' ' + self.picture.name
@@ -51,7 +53,8 @@ class Like(models.Model):
 class InBoard(models.Model):
     board = models.ForeignKey(Board)
     picture = models.ForeignKey(Picture)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
+    # auto_now_add=True
 
     def __str__(self):
         return self.board.name + ' ' + self.picture.name

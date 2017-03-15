@@ -10,6 +10,22 @@ from django.http import JsonResponse
 from django.db.utils import IntegrityError
 
 
+class BoardInformation(APIView):
+
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    def get(self, request):
+        try:
+            identification = request.GET['identification']
+            board = Board.objects.get(identification=identification)
+            serializer = BoardSerializer(board)
+            return Response(serializer.data)
+
+        except:
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST)
+
+
 class BoardUser(APIView):
 
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -29,15 +45,14 @@ class BoardUser(APIView):
 
 class SubscriptionBoardUser(APIView):
 
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get(self, request):
         try:
             username = request.GET['username']
-            user = User.objects.get(username=username)
-            print(user)
-            subscription = Subscription.objects.filter(user=user)
-            serializer = SubscriptionSerializer(subscription, many=True)
+            board = Board.objects.filter(subscription__user__username=username)
+
+            serializer = BoardSerializer(board, many=True)
             return Response(serializer.data)
 
         except:

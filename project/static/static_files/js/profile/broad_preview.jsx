@@ -5,7 +5,7 @@ var UserInformations = React.createClass({
         var data = {
             'username': this.props.username
         };
-        var url = '/profile/api/user-profile/';
+        var url = '/user/api/user-profile/';
 
         $.ajax({
             url: url,

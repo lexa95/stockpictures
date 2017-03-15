@@ -1,0 +1,17 @@
+@media (min-width: 768px){
+    .modal-dialog {
+        width: 700px;
+        margin: 30px auto;
+    }
+}
+
+
+.modal-body{
+    min-height:  500px;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}

@@ -19,10 +19,21 @@ gulp.task 'stylus', ->
 		.pipe gulp.dest '../project/static/static_files/css'
 		.pipe do livereload
 
+gulp.task 'react', ->
+	gulp.src 'src/react/*/*.jsx'
+		.pipe do react
+		.pipe gulp.dest 'dist/js'
+		.pipe rename (path) ->
+			path.dirname += '/static/static_files/js/' + path.dirname;
+		.pipe gulp.dest '../project'
+		.pipe do livereload
+
+
 gulp.task 'watch', ->
 	do livereload.listen
-	gulp.watch 'src/jade-template/*/*.jade', ['jade']
-	gulp.watch 'src/stylus/*/*.styl', ['stylus']
+	# gulp.watch 'src/jade-template/*/*.jade', ['jade']
+	# gulp.watch 'src/stylus/*/*.styl', ['stylus']
+	gulp.watch 'src/react/*/*.jsx', ['react']
 
 gulp.task 'default', ['stylus', 'watch', 'jade']
 

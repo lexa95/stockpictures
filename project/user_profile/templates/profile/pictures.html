@@ -1,9 +1,9 @@
-{% extends "account_base.html" %}
+{% extends "base.html" %}
 
 {% load staticfiles %}
 
 {% block title %}
-    subscriptions
+    BOARDS
 {% endblock %}
 
 {% block link %}
@@ -17,11 +17,19 @@
     </div>
 
     <div id='navigation'>
-        <a href="../">board </a>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 text-center nav-menu-user">
+                    <a class='item-nav' href="../boards">BOARD</a>
+                    <a class='item-nav' href="../subscriptions">SUBSCRIPTION</a>
+                    <a class='item-nav' href="../likes">LIKE</a>
+                    <a class='item-nav' href="../pictures">IMAGE </a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div id='boards'>
-
+    <div id='pictures' class='text-center'>
     </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
@@ -29,5 +37,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
 
     <script src="{% static "js/profile/broad_preview.jsx" %}" type="text/babel"></script>
-    <script src="{% static "js/board/boards.jsx" %}" type="text/babel"></script>
-{% endblock %}
+    <script src="{% static "js/picture/pictures.jsx" %}" type="text/babel"></script>
+ {% endblock %}

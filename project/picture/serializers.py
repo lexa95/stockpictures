@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Like, InBoard, Picture
+from django.db.models.fields import DateField
 
 
 class PicturesInBoardSerializer(serializers.ModelSerializer):
@@ -13,15 +14,21 @@ class PicturesInBoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = InBoard
         fields = ('boardname', 'resource_url', 'url', 'user', 'identification',
-                  'name')
+                  'name', 'date')
 
 
 class LikeSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username')
     first_name = serializers.CharField(source='user.first_name')
     last_name = serializers.CharField(source='user.last_name')
-    # user_img = serializers.CharField(source='user.profile.user_img')
 
     class Meta:
         model = Like
         fields = ('username', 'first_name', 'last_name',)
+
+
+class PictureSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Picture
+        fields = ('url', 'name', 'user', 'identification', 'date')

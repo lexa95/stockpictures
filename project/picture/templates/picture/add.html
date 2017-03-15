@@ -1,15 +1,11 @@
 {% extends "account_base.html" %}
-{% load staticfiles %}
-{% block title %}
-    BOARD
-{% endblock %}
 
-{% block link %}
-    <link rel="stylesheet" href="{% static "css/board/board.css" %}">
+{% block title %}
+    PICTURE
 {% endblock %}
 
 {% block content %}
-    
+
     <div id="pictures">
 
     </div>
@@ -18,5 +14,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
 
-    <script src="{% static "js/board/board.jsx" %}" type="text/babel"></script>
+
 {% endblock %}

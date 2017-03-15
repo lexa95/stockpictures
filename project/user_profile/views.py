@@ -27,3 +27,19 @@ def profile(request):
 
     return render(request, 'profile/profile.html', {
         'user': request.user, 'profile': request.user.profile})
+
+
+def boards(request, username):
+    return render(request, 'profile/boards.html')
+
+
+def subscriptions(request, username):
+    return render(request, 'profile/subscriptions.html')
+
+
+def pictures(request, username):
+    return render(request, 'profile/pictures.html')
+
+
+def likes(request, username):
+    return render(request, 'profile/likes.html')
