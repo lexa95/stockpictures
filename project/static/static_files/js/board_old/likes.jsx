@@ -26,7 +26,6 @@ var Pictures = React.createClass({
     },
 
     getComment:function(){
-        console.log(1);
         this.setState({arr: this.state.arr.concat(this.getPicture(this.state.step, this.state.username))})
         this.state.state++
     },

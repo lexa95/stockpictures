@@ -8,16 +8,19 @@
             {% endblock %}
         </title>
 
-        <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.css" %}">
-        <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap-theme.css" %}">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static "css/index.css" %}">
-        
+        <link rel="stylesheet" href="{% static "font-awesome-4.7.0/css/font-awesome.min.css" %}">
+
         {% block link %}
         {% endblock %}
 
         <script src="{% static "jquery/jquery.min.js" %}"></script>
-        <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
         <script src="{% static "js/csrftoken.js" %}"></script>
+        <script src="https://unpkg.com/react@15/dist/react.js"></script>
+        <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+        <script src="{% static "js/reactstrap.js" %}"></script>
 
         {% block script %}
         {% endblock %}
@@ -36,9 +39,14 @@
                 </div>
                 <div class="head-nav-item align-middle text-right">
                     {% if user.is_authenticated %}
-                        <div>
-                            <a href={% url 'logout' %}> <h4 class="none-margin">LOGOUT</h4></a>
-                            <a href={% url 'profile' %}> <h4 class="none-margin">PROFILE</h4></a>
+                        <div class='block-inline align-middle'>
+                            <a href={% url 'profile' %}> <h6 class="none-margin">PROFILE</h6></a>
+                        </div>
+                        <div class='block-inline align-middle'>
+                            <a href={% url 'boards' user.username%}> <h6 class="none-margin">BOARD</h6></a>
+                        </div>
+                        <div class='block-inline align-middle'>
+                            <a href={% url 'logout' %}> <h6 class="none-margin">LOGOUT</h6></a>
                         </div>
                     {% else %}
                         <div>
@@ -54,5 +62,6 @@
             {% block content %}
             {% endblock %}
         </div>
+        
     </body>
 </html>

@@ -1,16 +1,19 @@
-{% extends "account_base.html" %}
+{% extends "base.html" %}
 
 {% block title %}
     PROFILE EDIT
 {% endblock %}
 
 {% block content %}
-    <h2>PROFILE EDIT</h2>
-
-    <form action="." method="post" enctype="multipart/form-data">    
-        {{ user_form.as_p }}
-        {{ profile_form.as_p }}
-        {% csrf_token %}
-        <p><input type="submit" value="Save changes"></p>  
-    </form>
+    <div class='text-center'>
+        <div style="width: 700px;" class='block-inline'>
+            <h2>PROFILE EDIT</h2>
+            <form action="." method="post" enctype="multipart/form-data">    
+                {{ user_form.as_p }}
+                {{ profile_form.as_p }}
+                {% csrf_token %}
+                <p><input type="submit" value="Save changes"></p>  
+            </form>
+        </div>
+    </div>
 {% endblock %}

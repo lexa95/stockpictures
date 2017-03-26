@@ -4,6 +4,7 @@ from .api import BoardUser, SubscriptionBoardUser, AddBoard, EditBoard
 from .api import RemodeBoard, UnsubscribeBoard, SubscribeBoard
 from .api import BoardInformation
 
+
 urlpatterns = [
     url(r'^api/board-information/$', BoardInformation.as_view()),
     url(r'^api/board-user/$', BoardUser.as_view()),

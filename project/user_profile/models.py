@@ -1,5 +1,7 @@
 from django.db import models
 from django.conf import settings
+from board.models import Board
+from django.conf import settings
 
 
 class Profile(models.Model):
@@ -9,3 +11,9 @@ class Profile(models.Model):
 
     def __str__(self):
         return 'Profile for user {}'.format(self.user.username)
+
+    def count_boards(self):
+        return str(Board.objects.filter(user=self.user).count())
+
+    def get_photo_url(self):
+        return self.photo.url

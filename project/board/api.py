@@ -6,7 +6,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
 from rest_framework import permissions
-from django.http import JsonResponse
 from django.db.utils import IntegrityError
 
 
@@ -15,15 +14,15 @@ class BoardInformation(APIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get(self, request):
-        try:
-            identification = request.GET['identification']
-            board = Board.objects.get(identification=identification)
-            serializer = BoardSerializer(board)
-            return Response(serializer.data)
+        # try:
+        identification = request.GET['identification']
+        board = Board.objects.get(identification=identification)
+        serializer = BoardSerializer(board, context={'request': request})
+        return Response(serializer.data)
 
-        except:
-            return Response(
-                status=status.HTTP_400_BAD_REQUEST)
+        # except:
+        #     return Response(
+        #         status=status.HTTP_400_BAD_REQUEST)
 
 
 class BoardUser(APIView):
@@ -35,7 +34,8 @@ class BoardUser(APIView):
             username = request.GET['username']
             user = User.objects.get(username=username)
             board = Board.objects.filter(user=user)
-            serializer = BoardSerializer(board, many=True)
+            serializer = BoardSerializer(board, many=True,
+                                         context={'request': request})
             return Response(serializer.data)
 
         except:
@@ -52,7 +52,8 @@ class SubscriptionBoardUser(APIView):
             username = request.GET['username']
             board = Board.objects.filter(subscription__user__username=username)
 
-            serializer = BoardSerializer(board, many=True)
+            serializer = BoardSerializer(board, many=True, 
+                                         context={'request': request})
             return Response(serializer.data)
 
         except:
@@ -61,6 +62,7 @@ class SubscriptionBoardUser(APIView):
 
 
 class AddBoard(APIView):
+
     permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request):
@@ -71,10 +73,10 @@ class AddBoard(APIView):
             new_board = Board(name=name, secret=secret, user=request.user)
             new_board.save()
 
-            return JsonResponse({'status': 'ok'})
+            return Response({'status': 'ok'})
 
         except IntegrityError:
-            return JsonResponse(
+            return Response(
                 {'status': 'you already have a Board with that name'},
                 status=status.HTTP_400_BAD_REQUEST)
 
@@ -98,7 +100,7 @@ class EditBoard(APIView):
             board.secret = secret
             board.save()
 
-            return JsonResponse({'status': 'ok'})
+            return Response({'status': 'ok'})
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
@@ -114,12 +116,13 @@ class RemodeBoard(APIView):
 
             board.delete()
 
-            return JsonResponse({'status': 'ok'})
+            return Response({'status': 'ok'})
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class UnsubscribeBoard(APIView):
+
     permission_classes = (permissions.IsAuthenticated, )
 
     def post(self, request):
@@ -129,12 +132,13 @@ class UnsubscribeBoard(APIView):
             subscribe = Subscription.objects.get(
                 board__identification=identification, user=request.user)
             subscribe.delete()
-            return JsonResponse({'status': 'ok'})
+            return Response({'status': 'ok'})
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class SubscribeBoard(APIView):
+
     permission_classes = (permissions.IsAuthenticated, )
 
     def post(self, request):
@@ -144,6 +148,6 @@ class SubscribeBoard(APIView):
 
             subscribe = Subscription(board=board, user=request.user)
             subscribe.save()
-            return JsonResponse({'status': 'ok'})
+            return Response({'status': 'ok'})
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)

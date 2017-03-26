@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}
+    PICTURE
+{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="{% static "css/picture.css" %}">
+    {% comment %}<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">{% endcomment %}
+{% endblock %}
+
+{% block content %}
+    <div id="picture">
+
+    </div>
+
+    <script src="{% static "js/picture.js" %}"></script>
+{% endblock %}

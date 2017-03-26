@@ -1,0 +1,35 @@
+.block-picture{
+    max-height: 550px;
+}
+
+.image_circle_min{
+    height: 50px;
+    width: 50px;
+    border-radius: 125px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: 50px;
+}
+
+.block-information{
+    display: table;
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.block-information-cell{
+    display: table-cell;
+    width: 50%;
+}
+
+.name-user{
+    margin: 0px 10px;
+}
+
+.btn {
+    margin: 0px;
+}
+
+.save-block{
+    height: 50px;
+}

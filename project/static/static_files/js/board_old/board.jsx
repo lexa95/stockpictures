@@ -95,6 +95,7 @@ var SaveBoards = React.createClass({
 var Picture = React.createClass({
 
     remove: function(){
+        console.log(this.props.picture)
         $.ajax({
             method: "POST",
             url: '/picture/api/picutes-delet/',
@@ -148,36 +149,12 @@ var AddPicture = React.createClass({
 
     render: function(){
         return  <div>
-                    <div className='col-xs-3 text-center' data-toggle="modal" data-target="#add-picture">
-                        <div><h4>ADD NEW</h4></div>
-                        <img src='/media/board/add-new.jpg' className="img-responsive"/>
-                    </div>
-
-                    <div className="modal fade" id="add-picture" taIndex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 className="modal-title" id="myModalLabel">ADD PICTURE</h4>
-                                </div>
-                                <div>
-                                    <div className="container-fluid vcenter">
-                                        <div className="row">
-                                            <div className="className">
-                                                <div className="col-xs-12">
-                                                    <form action="/picture/add/" method="get">
-                                                        <label className="required" htmlFor="id_name">RESOURCE URL:</label>
-                                                        <input name="resource_url" id="resource_url" type="text" value={this.state.resource_url} onChange={this.urlChange}/>
-                                                        <input type="submit" value="Submit"/>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <a href='/picture/add/'>
+                        <div className='col-xs-3 text-center' data-toggle="modal" data-target="#add-picture">
+                            <div><h4>ADD NEW</h4></div>
+                            <img src='/media/board/add-new.jpg' className="img-responsive"/>
+                        </div>                  
+                    </a>  
                 </div>
     }
 });
@@ -214,7 +191,6 @@ var Pictures = React.createClass({
     },
 
     getUserBoard: function(identification){
-        // api/board-information/
         var username
         
         $.ajax({

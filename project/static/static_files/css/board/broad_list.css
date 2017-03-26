@@ -11,55 +11,30 @@
     padding: 0px 15px; 
 }
 
-.add-new-board-dialog{
-    border-radius: 0px;
-    box-shadow: none;
-    border: none;
+#navigation{
+    margin: 25px 0px;
 }
 
-.required{
-    width: 100px;
+.item-nav{
+    color: #292b2c;
+    padding: 0px 60px;
+    font-weight: 500;
 }
 
-.btn-edit{
-    background: white;
-    border: none;
-    font-size: 18px;
-    padding-top: 0px;
-    padding-bottom: 0px;
+@media (max-width: 576px){
+    .item-nav{
+        display: block;
+    }
 }
 
-.btn-subscriptions{
-    background: #cd3e3e;
-    border: none;
-    font-size: 18px;
-    padding-top: 0px;
-    padding-bottom: 0px;
+@media (min-width: 576px){
+    .item-nav{
+        padding: 0px 20px;
+    }
 }
 
-.btn-unsubscriptions{
-    background: white;
-    border: none;
-    font-size: 18px;
-    padding-top: 0px;
-    padding-bottom: 0px;
-}
-
-.block-board{
-    height: 260px;
-}
-
-.nav-menu-user{
-    margin-top: 50px;
-    margin-bottom: 30px;
-}
-
-.nav-menu-user > a{
-    margin: 0px 30px;
-    font-size: 18px;
-    color: #2c4758;
-}
-
-.active{
-    text-decoration-line: line-through;
+@media (min-width: 768px){
+    .item-nav{
+        padding: 0px 40px;
+    }
 }

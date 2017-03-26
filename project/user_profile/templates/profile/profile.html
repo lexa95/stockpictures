@@ -1,30 +1,34 @@
-{% extends "account_base.html" %}
+{% extends "base.html" %}
 
 {% block title %}
     INFORMATION PROFILE
 {% endblock %}
 
 {% block content %}
-    <h2>INFORMATION PROFILE</h2>
+    <div class='text-center'>
+        <h2>INFORMATION PROFILE</h2>
 
-    <div>
-        USERNAME: {{ user.username}}
+        <div>
+            USERNAME: {{ user.username}}
+        </div>
+        <div>
+            FIRST NAME: {{ user.first_name}}
+        </div>
+        <div>
+            LAST NAME: {{ user.last_name}}
+        </div>
+        <div>
+            EMAIL: {{ user.email}}
+        </div>
+        <div>
+        <div>
+            DATE OF BIRTH: {{ profile.date_of_birth}}
+        </div>
+        <div>
+            PHOTO:
+            <div class="image_profile_circle block-inline align-middle" style="background-image: url({{profile.photo.url}});">
+            </div>
+        </div>
+        <a href={% url 'edit_profile' %}><i class="fa fa-pencil" aria-hidden="true"></i></i>EDIT</a>
     </div>
-    <div>
-        FIRST NAME: {{ user.first_name}}
-    </div>
-    <div>
-        LAST NAME: {{ user.last_name}}
-    </div>
-    <div>
-        EMAIL: {{ user.email}}
-    </div>
-    <div>
-    <div>
-        DATE OF BIRTH: {{ profile.date_of_birth}}
-    </div>
-    <div>
-        PHOTO: <img src="{{profile.photo.url}}" alt="">
-    </div>
-    <a href={% url 'edit_profile' %}> edit profile </a>
 {% endblock %}

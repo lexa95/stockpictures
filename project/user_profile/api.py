@@ -45,12 +45,13 @@ class UserProfileAuth(APIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request):
-        try:
-            user = request.user
-            profile = Profile.objects.get(user=user)
-            serializer = ProfileSerializer(profile)
-            return Response(serializer.data)
+        # try:
+        user = request.user
+        profile = Profile.objects.get(user=user)
+        print(profile.count_boards())
+        serializer = ProfileSerializer(profile)
+        return Response(serializer.data)
 
-        except:
-            return Response(
-                status=status.HTTP_400_BAD_REQUEST)
+        # except:
+        #     return Response(
+        #         status=status.HTTP_400_BAD_REQUEST)

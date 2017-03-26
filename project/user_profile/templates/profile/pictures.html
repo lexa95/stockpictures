@@ -19,11 +19,13 @@
     <div id='navigation'>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xs-12 text-center nav-menu-user">
-                    <a class='item-nav' href="../boards">BOARD</a>
-                    <a class='item-nav' href="../subscriptions">SUBSCRIPTION</a>
-                    <a class='item-nav' href="../likes">LIKE</a>
-                    <a class='item-nav' href="../pictures">IMAGE </a>
+                <div class="col-sm-12 nav-menu-user text-center">
+                    <div>
+                        <a class='item-nav' href="../boards">BOARD</a>
+                        <a class='item-nav' href="../pictures">PICTURES</a>
+                        <a class='item-nav' href="../likes">LIKES</a>
+                        <a class='item-nav' href="../subscriptions">SUBSCRIPTION</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -31,11 +33,8 @@
 
     <div id='pictures' class='text-center'>
     </div>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
 
-    <script src="{% static "js/profile/broad_preview.jsx" %}" type="text/babel"></script>
-    <script src="{% static "js/picture/pictures.jsx" %}" type="text/babel"></script>
+
+    <script src="{% static "js/profile_preview.js" %}"></script>
+    <script src="{% static "js/pictures.js" %}"></script>
  {% endblock %}
