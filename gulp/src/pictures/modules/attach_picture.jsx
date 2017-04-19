@@ -1,6 +1,6 @@
 var Modal = Reactstrap.Modal
 var ModalHeader = Reactstrap.ModalHeader
-var ModalBody = Reactstrap.ModalBody 
+var ModalBody = Reactstrap.ModalBody
 var ModalFooter = Reactstrap.ModalFooter
 var Button = Reactstrap.Button
 
@@ -15,10 +15,22 @@ var SaveBoard = React.createClass({
     },
 
     render: function(){
-        return  <div>
-                    <img src={this.props.board.cover} width='80' alt=""/>
-                    {this.props.board.name}
-                    <span><button data-dismiss="modal" aria-label onClick={this.save}>SAVE</button></span>
+        var images = this.props.board.images
+        while(images.length < 1){
+            images.push({url: "/media/none.jpg"})
+        }
+
+        var style = {
+            backgroundImage: "url('" + this.props.board.images[0].url + "')"
+        };
+
+        return  <div className="add-board-item">
+                    <div className="board-cover-sm">
+                        <div className='board-container-first-sm cover-img' style={style}>
+                        </div>
+                    </div>
+                    <span className="add-board-name">{this.props.board.name}</span>
+                    <Button onClick={this.save} size="sm" color="danger">SAVE</Button>
                 </div>
     }
 });
@@ -42,8 +54,8 @@ var SaveBoards = React.createClass({
 
     getInitialState: function(){
         var board = this.getBoards(this.props.user_auth.username, '/board/api/board-user/')
-        
-        return { 
+
+        return {
             picture: this.props.picture,
             board: board,
             modal: this.props.isOpen,
@@ -83,7 +95,7 @@ var SaveBoards = React.createClass({
         var list_board = this.state.board.map(function(s, i){
             return <SaveBoard board={s} key={i} save={self.save}/>
         })
-        
+
         return <div>
                     <Modal isOpen={this.state.modal} toggle={this.toggle} className="modal-attach-picture" size='lg'>
                         <ModalHeader toggle={this.toggle}>SAVE BOARD</ModalHeader>

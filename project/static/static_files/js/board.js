@@ -224,7 +224,7 @@ module.exports = AddPicture
 },{}],4:[function(require,module,exports){
 var Modal = Reactstrap.Modal
 var ModalHeader = Reactstrap.ModalHeader
-var ModalBody = Reactstrap.ModalBody 
+var ModalBody = Reactstrap.ModalBody
 var ModalFooter = Reactstrap.ModalFooter
 var Button = Reactstrap.Button
 
@@ -239,10 +239,22 @@ var SaveBoard = React.createClass({displayName: "SaveBoard",
     },
 
     render: function(){
-        return  React.createElement("div", null, 
-                    React.createElement("img", {src: this.props.board.cover, width: "80", alt: ""}), 
-                    this.props.board.name, 
-                    React.createElement("span", null, React.createElement("button", {"data-dismiss": "modal", "aria-label": true, onClick: this.save}, "SAVE"))
+        var images = this.props.board.images
+        while(images.length < 1){
+            images.push({url: "/media/none.jpg"})
+        }
+
+        var style = {
+            backgroundImage: "url('" + this.props.board.images[0].url + "')"
+        };
+
+        return  React.createElement("div", {className: "add-board-item"}, 
+                    React.createElement("div", {className: "board-cover-sm"}, 
+                        React.createElement("div", {className: "board-container-first-sm cover-img", style: style}
+                        )
+                    ), 
+                    React.createElement("span", {className: "add-board-name"}, this.props.board.name), 
+                    React.createElement(Button, {onClick: this.save, size: "sm", color: "danger"}, "SAVE")
                 )
     }
 });
@@ -266,8 +278,8 @@ var SaveBoards = React.createClass({displayName: "SaveBoards",
 
     getInitialState: function(){
         var board = this.getBoards(this.props.user_auth.username, '/board/api/board-user/')
-        
-        return { 
+
+        return {
             picture: this.props.picture,
             board: board,
             modal: this.props.isOpen,
@@ -307,7 +319,7 @@ var SaveBoards = React.createClass({displayName: "SaveBoards",
         var list_board = this.state.board.map(function(s, i){
             return React.createElement(SaveBoard, {board: s, key: i, save: self.save})
         })
-        
+
         return React.createElement("div", null, 
                     React.createElement(Modal, {isOpen: this.state.modal, toggle: this.toggle, className: "modal-attach-picture", size: "lg"}, 
                         React.createElement(ModalHeader, {toggle: this.toggle}, "SAVE BOARD"), 
@@ -335,7 +347,6 @@ var SaveBoards = React.createClass({displayName: "SaveBoards",
 
 
 module.exports = SaveBoards
-
 },{}],5:[function(require,module,exports){
 var EditBoard = require('./../../boards/modules/edit_board.jsx')
 var Button = Reactstrap.Button

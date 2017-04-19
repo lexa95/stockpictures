@@ -24,7 +24,7 @@ class Picture(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return self.identification
 
     def save(self, *args, **kwargs):
         if(self.identification == '' or self.identification is None):
