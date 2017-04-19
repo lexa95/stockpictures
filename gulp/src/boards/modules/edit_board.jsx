@@ -1,6 +1,6 @@
 var Modal = Reactstrap.Modal
 var ModalHeader = Reactstrap.ModalHeader
-var ModalBody = Reactstrap.ModalBody 
+var ModalBody = Reactstrap.ModalBody
 var ModalFooter = Reactstrap.ModalFooter
 var Button = Reactstrap.Button
 
@@ -24,7 +24,7 @@ var EditBoard = React.createClass({
     secretChange: function(event){
         this.setState({secret: event.target.checked});
     },
-    
+
     editBoard: function(){
         var url =  '/board/api/board-edit/'
         var data = {
@@ -41,7 +41,7 @@ var EditBoard = React.createClass({
             data: data,
             async:false,
         });
-        
+
         this.props.updateBoard()
         this.toggle()
     },
@@ -60,7 +60,7 @@ var EditBoard = React.createClass({
             data: data,
             async:false,
         });
-        
+
         this.props.updateBoard()
         this.toggle()
     },
@@ -87,17 +87,17 @@ var EditBoard = React.createClass({
                         <ModalBody>
                             <div className='container-fluid'>
                                 <div className="row">
-                                    
+
                                     <div className="col-12">
-                                        <div>                   
-                                            <label className="required" htmlFor="id-name">Name:</label>
-                                            <input id="id-name" maxLength="30" type="text" value={this.state.name} onChange={this.nameChange} required=""/>                   
+                                        <div className="input-group">
+                                            <span className="input-group-addon input-title" id="basic-addon1">Name:</span>
+                                            <input type="text" className="form-control" value={this.state.name} onChange={this.nameChange} required=""/>
                                         </div>
                                     </div>
                                     <div className="col-12">
-                                        <div>                   
+                                        <div className="input-group">
                                             <label className="required" htmlFor="id-secter">Secret:</label>
-                                            <input id="id-secter" type="checkbox" name="vehicle" value={this.state.secret}  onChange={this.secretChange} maxLength="30"/>               
+                                            <input id="id-secter" type="checkbox" name="vehicle" value={this.state.secret}  onChange={this.secretChange} className="input-check-box"/>
                                         </div>
                                     </div>
 

@@ -36,12 +36,32 @@ var UnsubBoard = React.createClass({
     },
 
     render: function(){
+
+        var images = this.props.board.images
+        while(images.length < 4){
+            images.push({url: "/media/none.jpg"})
+        }
+
+        var style = {
+            backgroundImage: "url('" + this.props.board.images[0].url + "')"
+        };
+
         return  <div className='board-block text-center'>
-                    <h6>
-                        <a href={this.props.url}>{this.props.board.name}</a>
-                    </h6>
                     <a href={this.props.url}>
-                        <img src={this.props.board.cover} className="img-fluid"/>
+                        <h6>
+                            <a href={this.props.url}>{this.props.board.name}</a>
+                        </h6>
+                        <div className="board-cover">
+                            <div className='board-container-first cover-img' style={style}>
+                            </div>
+                            <div className="board-container-second">
+                                <div className="block-inline">
+                                    <img src={this.props.board.images[1].url} className="img-fluid cover-small-item"/>
+                                    <img src={this.props.board.images[2].url} className="img-fluid cover-small-item"/>
+                                    <img src={this.props.board.images[3].url} className="img-fluid cover-small-item"/>
+                                </div>
+                            </div>
+                        </div>
                     </a>
                     <div>
                         <Button onClick={this.subscribe} size="sm">SUBSCRIBE</Button>
@@ -64,16 +84,36 @@ var SubBoard = React.createClass({
     },
 
     render: function(){
+        var images = this.props.board.images
+        while(images.length < 4){
+            images.push({url: "/media/none.jpg"})
+        }
+
+        var style = {
+            backgroundImage: "url('" + this.props.board.images[0].url + "')"
+        };
+
         return  <div className='board-block text-center'>
-                    <h6 className='text-center'>
-                        <a href={this.props.url}>{this.props.board.name}</a>
-                    </h6>
                     <a href={this.props.url}>
-                        <img src={this.props.board.cover} className="img-fluid"/>
+                        <h6>
+                            <a href={this.props.url}>{this.props.board.name}</a>
+                        </h6>
+                        <div className="board-cover">
+                            <div className='board-container-first cover-img' style={style}>
+
+                            </div>
+                            <div className="board-container-second">
+                                <div className="block-inline">
+                                    <img src={this.props.board.images[1].url} className="img-fluid cover-small-item"/>
+                                    <img src={this.props.board.images[2].url} className="img-fluid cover-small-item"/>
+                                    <img src={this.props.board.images[3].url} className="img-fluid cover-small-item"/>
+                                </div>
+                            </div>
+                        </div>
                     </a>
                     <div>
                         {/*<button onClick={this.unsubscribe} className='btn-subscriptions'>SUBSCRIBE</button>*/}
-                        <Button onClick={this.unsubscribe} size="sm" color="danger">SUBSCRIBE</Button> 
+                        <Button onClick={this.unsubscribe} size="sm" color="danger">SUBSCRIBE</Button>
                     </div>
                 </div>
     }
@@ -86,16 +126,37 @@ var MyBoard = React.createClass({
     },
 
     render: function(){
-        return  <div className='board-block text-center'>
-                    <h6>
-                        <a href={this.props.url}>{this.props.board.name}</a>
-                    </h6>
+
+        var images = this.props.board.images
+        while(images.length < 4){
+            images.push({url: "/media/none.jpg"})
+        }
+
+        var style = {
+            backgroundImage: "url('" + this.props.board.images[0].url + "')"
+        };
+
+        return  <div className='text-center'>
                     <a href={this.props.url}>
-                        <img src={this.props.board.cover} className="img-fluid"/>
+                        <h6>
+                            <a href={this.props.url}>{this.props.board.name}</a>
+                        </h6>
+                        <div className="board-cover">
+                            <div className='board-container-first cover-img' style={style}>
+
+                            </div>
+                            <div className="board-container-second">
+                                <div className="block-inline">
+                                    <img src={this.props.board.images[1].url} className="img-fluid cover-small-item"/>
+                                    <img src={this.props.board.images[2].url} className="img-fluid cover-small-item"/>
+                                    <img src={this.props.board.images[3].url} className="img-fluid cover-small-item"/>
+                                </div>
+                            </div>
+                        </div>
                     </a>
                     <div>
                         {/*<button onClick={this.clickChange} className='btn-edit' data-toggle="modal" data-target="#edit-board">CHANGE</button>*/}
-                        <Button onClick={this.clickChange} size="sm">CHANGE</Button> 
+                        <Button onClick={this.clickChange} size="sm">CHANGE</Button>
                     </div>
                 </div>
     }
@@ -120,8 +181,8 @@ var Board = React.createClass({
         else{
             board = <UnsubBoard board={this.props.board} updateSubBoards={this.props.updateSubBoards} url={this.state.url}/>
         }
-        
-        return  <div className='col-12 col-sm-4 col-md-3 col-md-2'>
+
+        return  <div className="board-block">
                     {board}
                 </div>
     }

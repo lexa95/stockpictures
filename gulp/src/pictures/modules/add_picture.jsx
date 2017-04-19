@@ -7,10 +7,10 @@ var AddPicture = React.createClass({
     },
 
     render: function(){
-        return  <div className='item'>
-                    <a href='/picture/add/'>
+        return  <div className="column">
+                    <a href='/picture/add/' className="board-cover">
                         <img src='/media/board/add-new.jpg' className="img-fluid"/>
-                    </a>  
+                    </a>
                 </div>
     }
 });

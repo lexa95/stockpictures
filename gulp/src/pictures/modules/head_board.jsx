@@ -42,7 +42,7 @@ var SubBoard = React.createClass({
         return(
             <div className='board-block text-center'>
                 <div>
-                    <Button onClick={this.unsubscribe} size="sm" color="danger">SUBSCRIBE</Button> 
+                    <Button onClick={this.unsubscribe} size="sm" color="danger">SUBSCRIBE</Button>
                 </div>
             </div>
         )
@@ -54,7 +54,7 @@ var MyBoard = React.createClass({
         return(
             <div className='board-block text-center'>
                 <div>
-                    <Button onClick={this.props.clickHandler} size="sm">CHANGE</Button> 
+                    <Button onClick={this.props.clickHandler} size="sm">CHANGE</Button>
                 </div>
             </div>
         )
@@ -73,8 +73,6 @@ var BoardHead = React.createClass({
 
     update: function(){
         var boardInformation = this.props.boardInformationUpdate()
-        alert('HERE')
-        console.log
         this.setState({
             boardInformation: boardInformation,
         })
@@ -113,7 +111,7 @@ var BoardHead = React.createClass({
                 <div className="row">
                     <div className="col-2">
                         <a href={url} className="">
-                            <i className="fa fa-angle-left" aria-hidden="true"></i> 
+                            <i className="fa fa-angle-left" aria-hidden="true"></i>
                             <span className='user_name'>
                                 {this.props.boardInformation.username}
                             </span>

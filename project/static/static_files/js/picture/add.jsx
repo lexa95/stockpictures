@@ -78,8 +78,8 @@ var SaveBoards = React.createClass({
         var list_board = this.state.board.map(function(s, i){
             return <SaveBoard board={s} key={i} save={self.save}/>
         })
-        
-        return  <div>                
+
+        return  <div>
                     <div className="modal fade" id="save-image" taIndex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div className="modal-dialog" role="document">
                             <div className="modal-content">
@@ -124,12 +124,12 @@ var Picture = React.createClass({
         if(this.props.picture[0] === '/'){
             console.log(this.props.resource_url.split('/'))
             var resource_url = this.props.resource_url.split('/')
-            var url_picture =  resource_url[0] + '/' + resource_url[2] + this.props.picture    
+            var url_picture =  resource_url[0] + '/' + resource_url[2] + this.props.picture
         }
         else{
-            var url_picture = this.props.picture    
+            var url_picture = this.props.picture
         }
-           
+
         return  <div className={this.state.class}>
                     <img src={url_picture} alt="" className="img-responsive" />
                     <button className='btn-edit' data-toggle="modal" data-target="#save-image" onClick={this.clickSave}>SAVE</button>
@@ -167,7 +167,7 @@ var AddPicture = React.createClass({
 
     updateSavingPicturesUrl: function(url){
         this.setState({saving_picture_url: url})
-    },  
+    },
 
     clickNext: function(){
         var url = '/picture/api/picture-parse/'
@@ -184,7 +184,7 @@ var AddPicture = React.createClass({
         });
 
     },
-    
+
     render: function(){
         var self = this
         var listPicture = this.state.pictures.map(function(s, i){
@@ -193,8 +193,8 @@ var AddPicture = React.createClass({
 
         return  <div className="container-fluid">
 
-                    <SaveBoards picture={   this.state.saving_picture_url} 
-                                            user_auth   =   {this.state.user_auth} 
+                    <SaveBoards picture={   this.state.saving_picture_url}
+                                            user_auth   =   {this.state.user_auth}
                                             resource_url=   {this.state.resource_url}/>
 
                     <div className="row">
@@ -210,6 +210,6 @@ var AddPicture = React.createClass({
 });
 
 ReactDOM.render(
-    React.createElement(AddPicture, {}), 
+    React.createElement(AddPicture, {}),
     document.getElementById('pictures')
 );

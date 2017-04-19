@@ -64,12 +64,12 @@ userAuth = getUserAuth()
 
 ReactDOM.render(
     React.createElement(Pictures, {
-        identification: boardIdentification, 
+        identification: boardIdentification,
         getPictures: getPictures,
         userPage: boardInformation.username,
         isAuthBoard: isAuthBoard,
         userAuth: userAuth,
-    }), 
+    }),
     document.getElementById('pictures')
 );
 

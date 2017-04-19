@@ -26,7 +26,7 @@ var Boards = React.createClass({
 
     getBoards: function(username, url){
         var board
-        
+
         $.ajax({
             url: url,
             dataType: 'json',
@@ -62,10 +62,10 @@ var Boards = React.createClass({
             subBoards = []
         }
         return {
-            userAuth: userAuth, 
-            userPage: userPage, 
+            userAuth: userAuth,
+            userPage: userPage,
             isAuth: isAuth,
-            boards: boards, 
+            boards: boards,
             subBoards: subBoards,
             changingBoard: {name: '', secret: false},
             isModalOpenChange: false,
@@ -73,7 +73,7 @@ var Boards = React.createClass({
     },
     updateBoard: function(){
         if(window.location.pathname.split('/')[3] === "subscriptions"){
-            this.setState({boards: this.getBoards(this.state.userPage, '/board/api/board-user-subscription/')})    
+            this.setState({boards: this.getBoards(this.state.userPage, '/board/api/board-user-subscription/')})
         }
         else{
             this.setState({boards: this.getBoards(this.state.userPage, '/board/api/board-user/')})
@@ -98,9 +98,9 @@ var Boards = React.createClass({
         var addNewBoard
         if(this.state.userAuth === this.state.userPage &&
             window.location.pathname.split('/')[3] !== "subscriptions"){
-            addNewBoard =   <div className='col-xs-6 col-sm-4 col-md-3 col-md-2'>
+            addNewBoard =   <div className="board-block">
                                 <AddNewBoard update = {this.updateBoard}/>
-                                
+
                                 <EditBoard  board               = {this.state.changingBoard}
                                             updateBoard         = {this.updateBoard}
                                             isModalOpenChange   = {this.state.isModalOpenChange}/>
@@ -119,7 +119,7 @@ var Boards = React.createClass({
                                             updateSubBoards     = {self.updateSubBoards}/>
         })
 
-        return  <div className='container-fluid'>
+        return  <div className='container'>
                     <div className="row">
                         <EditBoard  board = {this.state.changingBoard} updateBoard = {this.updateBoard}/>
                         {addNewBoard}
@@ -130,6 +130,6 @@ var Boards = React.createClass({
 });
 
 ReactDOM.render(
-    React.createElement(Boards, {}), 
+    React.createElement(Boards, {}),
     document.getElementById('boards')
 );

@@ -1,19 +1,19 @@
 var Modal = Reactstrap.Modal
 var ModalHeader = Reactstrap.ModalHeader
-var ModalBody = Reactstrap.ModalBody 
+var ModalBody = Reactstrap.ModalBody
 var ModalFooter = Reactstrap.ModalFooter
 var Button = Reactstrap.Button
 
 
 var AddNewBoard = React.createClass({
     getInitialState: function() {
-        return { 
-            boardName: '', 
+        return {
+            boardName: '',
             isSecret: false,
-            modal: false 
+            modal: false
         }
     },
-    
+
     createBoard: function(){
         var url =  '/board/api/board-add/'
         var data = { name: this.state.boardName, secret: this.state.isSecret }
@@ -49,10 +49,12 @@ var AddNewBoard = React.createClass({
 
     render: function(){
         return(
-            <div className='board-block'>
+            <div>
                 <div className='text-center' onClick={this.toggle}>
                     <div><h6>ADD NEW</h6></div>
-                    <img src='/media/board/add-new.jpg' className="img-fluid"/>
+                    <div className="board-cover">
+                        <img src='/media/board/add-new.jpg' className="img-fluid"/>
+                    </div>
                 </div>
 
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className="modal-attach-picture">
@@ -60,20 +62,18 @@ var AddNewBoard = React.createClass({
                         <ModalBody>
                             <div className='container-fluid'>
                                 <div className="row">
-                                    
                                     <div className="col-12">
-                                        <div>                   
-                                            <label className="required" htmlFor="id-name">Name:</label>
-                                            <input id="id-name" maxLength="30" type="text" value={this.state.boardName} onChange={this.nameChange} required=""/>                   
+                                        <div className="input-group">
+                                            <span className="input-group-addon input-title" id="basic-addon1">Name:</span>
+                                            <input type="text" className="form-control" value={this.state.boardName} onChange={this.nameChange} required=""/>
                                         </div>
                                     </div>
                                     <div className="col-12">
-                                        <div>                   
+                                        <div className="input-group">
                                             <label className="required" htmlFor="id-secter">Secret:</label>
-                                            <input id="id-secter" type="checkbox" name="vehicle" value={this.state.isSecret}  onChange={this.secretChange} maxLength="30"/>               
+                                            <input id="id-secter" type="checkbox" name="vehicle" value={this.state.isSecret}  onChange={this.secretChange} className="input-check-box"/>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </ModalBody>

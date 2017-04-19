@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from selenium import webdriver
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -151,3 +152,8 @@ REST_FRAMEWORK = {
     ),
     'DATETIME_FORMAT': "%Y-%m-%dT%H:%M:%S.%fZ",
 }
+
+DRIVER = webdriver.PhantomJS(
+    executable_path='../phantomjs-2.1.1-windows/bin/phantomjs.exe',
+    service_args=['--load-images=no'])
+DRIVER.set_window_size(1024, 768)

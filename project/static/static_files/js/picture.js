@@ -1,1 +1,419 @@
-!function e(t,a,i){function r(s,n){if(!a[s]){if(!t[s]){var u="function"==typeof require&&require;if(!n&&u)return u(s,!0);if(c)return c(s,!0);var l=new Error("Cannot find module '"+s+"'");throw l.code="MODULE_NOT_FOUND",l}var o=a[s]={exports:{}};t[s][0].call(o.exports,function(e){var a=t[s][1][e];return r(a?a:e)},o,o.exports,e,t,a,i)}return a[s].exports}for(var c="function"==typeof require&&require,s=0;s<i.length;s++)r(i[s]);return r}({1:[function(e,t,a){var i=Reactstrap.Button,r=e("../pictures/modules/attach_picture.jsx"),c=e("../pictures/modules/picture.jsx"),s=React.createClass({displayName:"Picture",getIdentificationPicture:function(){return window.location.pathname.split("/")[2]},getPictureData:function(e){var t,a,i;return a="/picture/api/picture-data/",t={identification:e},$.ajax({url:a,dataType:"json",data:t,success:function(e){i=e},async:!1}),i},getSimilarPicture:function(e){var t,a,i;return a="/picture/api/similar-pictures/",t={identification:e},$.ajax({url:a,dataType:"json",data:t,success:function(e){i=e},async:!1}),i},clickSave:function(){this.setState({savingPicture:this.state.pictureData,isOpenAttach:!0})},getInitialState:function(){return{pictureData:this.getPictureData(this.getIdentificationPicture()),isOpenAttach:!1,savingPicture:{},pictures:this.getSimilarPicture(this.getIdentificationPicture())}},setSavingPicture:function(e){this.setState({savingPicture:e,isOpenAttach:!0})},updatePicture:function(){},render:function(){var e={backgroundImage:"url("+this.state.pictureData.user_avatar+")"},t="/user/"+this.state.pictureData.user+"/boards/",a=this,s=this.state.pictures.map(function(e,t){return React.createElement(c,{picture:e,key:t,pictures:a.state.pictures.slice(t+1).concat([a.state.pictureData]),is_auth:!(void 0===a.props.userAuth),is_auth_board:!1,handlerAttach:a.setSavingPicture,board_id:void 0,updatePicture:a.updatePicture,auth_username:a.props.userAuth.username})});return React.createElement("div",{className:"container-fluid"},React.createElement("div",{className:"row"},React.createElement("div",{className:"col-12 text-center"},React.createElement("div",{className:"block-inline"},React.createElement("div",{className:"block-inline"},React.createElement("img",{className:"block-picture",src:this.state.pictureData.url,alt:""})),React.createElement("div",{className:"block-information"},React.createElement("div",{className:"align-middle block-information-cell text-left"},React.createElement("a",{href:t},React.createElement("div",{className:"image_circle_min block-inline align-middle",style:e}),React.createElement("div",{className:"block-inline align-middle name-user"},this.state.pictureData.user))),React.createElement("div",{className:"align-middle block-information-cell text-right"},React.createElement(i,{color:"danger",onClick:this.clickSave},"SAVE")))),React.createElement("div",null,React.createElement(r,{picture:this.state.savingPicture,user_auth:this.props.userAuth,isOpen:this.state.isOpenAttach})))),React.createElement("div",{className:"masonry"},s))}});ReactDOM.render(React.createElement(s,{userAuth:function(){var e;return $.ajax({url:"/user/api/user_profile_auth/",dataType:"json",success:function(t){e=t},async:!1}),e}()}),document.getElementById("picture"))},{"../pictures/modules/attach_picture.jsx":2,"../pictures/modules/picture.jsx":3}],2:[function(e,t,a){var i=Reactstrap.Modal,r=Reactstrap.ModalHeader,c=Reactstrap.ModalBody,s=Reactstrap.ModalFooter,n=Reactstrap.Button,u=React.createClass({displayName:"SaveBoard",getInitialState:function(){return{}},save:function(){this.props.save(this.props.board)},render:function(){return React.createElement("div",null,React.createElement("img",{src:this.props.board.cover,width:"80",alt:""}),this.props.board.name,React.createElement("span",null,React.createElement("button",{"data-dismiss":"modal","aria-label":!0,onClick:this.save},"SAVE")))}}),l=React.createClass({displayName:"SaveBoards",getBoards:function(e,t){var a;return $.ajax({url:t,dataType:"json",data:{username:e},success:function(e){a=e},async:!1}),a},getInitialState:function(){var e=this.getBoards(this.props.user_auth.username,"/board/api/board-user/");return{picture:this.props.picture,board:e,modal:this.props.isOpen}},toggle:function(){this.setState({modal:!this.state.modal})},componentWillReceiveProps:function(e){this.setState({picture:e.picture,modal:e.isOpen})},save:function(e){$.ajax({method:"POST",url:"/picture/api/picutes-save/",dataType:"json",data:{identification_board:e.identification,identification_picture:this.state.picture.identification},async:!1}),this.setState({modal:!1})},render:function(){self=this;var e=this.state.board.map(function(e,t){return React.createElement(u,{board:e,key:t,save:self.save})});return React.createElement("div",null,React.createElement(i,{isOpen:this.state.modal,toggle:this.toggle,className:"modal-attach-picture",size:"lg"},React.createElement(r,{toggle:this.toggle},"SAVE BOARD"),React.createElement(c,null,React.createElement("div",{className:"container-fluid"},React.createElement("div",{className:"row"},React.createElement("div",{className:"col-7 vcenter"},React.createElement("div",null,React.createElement("img",{src:this.props.picture.url,alt:"",className:"img-fluid"}))),React.createElement("div",{className:"col-5 vcenter"},e)))),React.createElement(s,null,React.createElement(n,{color:"secondary",onClick:this.toggle},"Cancel"))))}});t.exports=l},{}],3:[function(e,t,a){function i(e,t){for(var a=0;a<t.length;a++)if(e.identification===t[a].identification)return!0;return!1}var r=Reactstrap.Button,c=React.createClass({displayName:"Picture",getInitialState:function(){return console.log(this.props.picture),{isDisplay:!i(this.props.picture,this.props.pictures),picturePageUrl:"/picture/"+this.props.picture.identification}},remove:function(){$.ajax({method:"POST",url:"/picture/api/picutes-delet/",dataType:"json",data:{identification_board:this.props.board_id,identification_picture:this.props.picture.identification},async:!1}),this.props.updatePicture()},attach:function(){this.props.handlerAttach(this.props.picture)},edit:function(){},render:function(){var e,t;return this.props.is_auth?this.props.is_auth_board?e=React.createElement(r,{color:"danger",size:"sm",onClick:this.remove},"REMOVE"):t=React.createElement(r,{onClick:this.attach,size:"sm"},"SAVE"):actions=React.createElement("span",null),this.state.isDisplay?React.createElement("div",{className:"item"},React.createElement("a",{href:this.state.picturePageUrl},React.createElement("img",{src:this.props.picture.url,alt:"",className:"img-fluid"})),React.createElement("div",{className:"buttons-from-block"},e,t,void 0)):React.createElement("div",null)}});t.exports=c},{}]},{},[1]);
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var Button          = Reactstrap.Button
+var AttachPicture   = require('../pictures/modules/attach_picture.jsx')
+var SimilarPicture  = require('../pictures/modules/picture.jsx')
+var Masonry         = require('../pictures/modules/masonry.jsx')
+
+var Picture = React.createClass({displayName: "Picture",
+    getIdentificationPicture: function(){
+        var url = window.location.pathname
+        var identification = url.split('/')[2]
+        return identification
+    },
+
+    getPictureData: function(identification){
+        var data, url, pictureData
+        url = '/picture/api/picture-data/'
+        data = {
+            identification: identification
+        }
+
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            data: data,
+            success: function(data){
+                pictureData = data
+            },
+            async:false,
+        });
+        return pictureData
+    },
+
+    getSimilarPicture: function(identification){
+        var data, url, pictureData
+        url = '/picture/api/similar-pictures/'
+        data = {
+            identification: identification
+        }
+
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            data: data,
+            success: function(data){
+                pictureData = data
+            },
+            async:false,
+        });
+
+        return pictureData
+    },
+
+    clickSave: function(){
+        this.setState({
+            savingPicture: this.state.pictureData,
+            isOpenAttach: true
+        })
+    },
+
+    getInitialState: function(){
+        return {
+            pictureData: this.getPictureData(this.getIdentificationPicture()),
+            isOpenAttach: false,
+            savingPicture: {},
+            pictures: this.getSimilarPicture(this.getIdentificationPicture()),
+            brakePoints: [350, 500, 750, 1000]
+        }
+    },
+
+    setSavingPicture: function(p){
+        this.setState({
+            savingPicture: p,
+            isOpenAttach: true
+        })
+    },
+
+    updatePicture: function(){
+    },
+
+    render: function(){
+
+        var divStyleBackground = {
+            backgroundImage: 'url(' + this.state.pictureData.user_avatar + ')'
+        }
+
+        var userUrl = '/user/' + this.state.pictureData.user + '/boards/'
+
+        var self = this
+        var listPictures = this.state.pictures.map(function(s, i){
+            return React.createElement(SimilarPicture, {picture: s, key: i, pictures: (self.state.pictures.slice(i+1)).concat([self.state.pictureData]), 
+                                                is_auth: !(self.props.userAuth === undefined), 
+                                                is_auth_board: false, 
+                                                handlerAttach: self.setSavingPicture, 
+                                                board_id: undefined, 
+                                                updatePicture: self.updatePicture, 
+                                                auth_username: self.props.userAuth.username})
+
+        });
+
+        return (
+            React.createElement("div", {className: "container-fluid"}, 
+                React.createElement("div", {className: "row"}, 
+                    React.createElement("div", {className: "col-12 text-center"}, 
+                        React.createElement("div", {className: "block-inline"}, 
+                            React.createElement("div", {className: "block-inline"}, 
+                                React.createElement("img", {className: "block-picture", src: this.state.pictureData.url, alt: ""})
+                            ), 
+                            React.createElement("div", {className: "block-information"}, 
+                                React.createElement("div", {className: "align-middle block-information-cell text-left"}, 
+                                    React.createElement("a", {href: userUrl}, 
+                                        React.createElement("div", {className: "image_circle_min block-inline align-middle", style: divStyleBackground}
+                                        ), 
+                                        React.createElement("div", {className: "block-inline align-middle name-user"}, 
+                                            this.state.pictureData.user
+                                        )
+                                    )
+                                ), 
+                                React.createElement("div", {className: "align-middle block-information-cell text-right"}, 
+                                    React.createElement(Button, {color: "danger", onClick: this.clickSave}, "SAVE")
+                                )
+                            )
+                        ), 
+                        React.createElement("div", null, 
+                            React.createElement(AttachPicture, {picture: this.state.savingPicture, 
+                                            user_auth: this.props.userAuth, 
+                                            isOpen: this.state.isOpenAttach})
+                        )
+                    )
+                ), 
+
+
+                React.createElement(Masonry, {brakePoints: this.state.brakePoints}, 
+                    listPictures
+                )
+            )
+        )
+    }
+});
+
+
+function getUserAuth(){
+    var user;
+
+    $.ajax({
+        url: '/user/api/user_profile_auth/',
+        dataType: 'json',
+        success: function(data){
+            user = data
+        },
+        async:false,
+    });
+    return user
+}
+
+
+ReactDOM.render(
+    React.createElement(Picture, {
+        userAuth: getUserAuth(),
+    }),
+    document.getElementById('picture')
+);
+},{"../pictures/modules/attach_picture.jsx":2,"../pictures/modules/masonry.jsx":3,"../pictures/modules/picture.jsx":4}],2:[function(require,module,exports){
+var Modal = Reactstrap.Modal
+var ModalHeader = Reactstrap.ModalHeader
+var ModalBody = Reactstrap.ModalBody 
+var ModalFooter = Reactstrap.ModalFooter
+var Button = Reactstrap.Button
+
+
+var SaveBoard = React.createClass({displayName: "SaveBoard",
+    getInitialState: function(){
+        return({})
+    },
+
+    save: function(){
+        this.props.save(this.props.board)
+    },
+
+    render: function(){
+        return  React.createElement("div", null, 
+                    React.createElement("img", {src: this.props.board.cover, width: "80", alt: ""}), 
+                    this.props.board.name, 
+                    React.createElement("span", null, React.createElement("button", {"data-dismiss": "modal", "aria-label": true, onClick: this.save}, "SAVE"))
+                )
+    }
+});
+
+var SaveBoards = React.createClass({displayName: "SaveBoards",
+    getBoards: function(username, url){
+        var board
+
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            data: {username: username},
+            success: function(data){
+                board = data
+            },
+            async:false,
+        });
+
+        return board
+    },
+
+    getInitialState: function(){
+        var board = this.getBoards(this.props.user_auth.username, '/board/api/board-user/')
+        
+        return { 
+            picture: this.props.picture,
+            board: board,
+            modal: this.props.isOpen,
+        };
+    },
+
+    toggle: function(){
+        this.setState({
+            modal: !this.state.modal
+        })
+    },
+
+    componentWillReceiveProps: function(nextProps) {
+        this.setState({
+            picture: nextProps.picture,
+            modal: nextProps.isOpen,
+        });
+    },
+
+    save: function(board){
+        $.ajax({
+            method: "POST",
+            url: '/picture/api/picutes-save/',
+            dataType: 'json',
+            data: {'identification_board': board.identification,
+                   'identification_picture': this.state.picture.identification},
+            async:false,
+        })
+
+        this.setState({
+            modal: false,
+        });
+    },
+
+    render: function(){
+        self = this
+        var list_board = this.state.board.map(function(s, i){
+            return React.createElement(SaveBoard, {board: s, key: i, save: self.save})
+        })
+        
+        return React.createElement("div", null, 
+                    React.createElement(Modal, {isOpen: this.state.modal, toggle: this.toggle, className: "modal-attach-picture", size: "lg"}, 
+                        React.createElement(ModalHeader, {toggle: this.toggle}, "SAVE BOARD"), 
+                            React.createElement(ModalBody, null, 
+                                React.createElement("div", {className: "container-fluid"}, 
+                                    React.createElement("div", {className: "row"}, 
+                                        React.createElement("div", {className: "col-7 vcenter"}, 
+                                            React.createElement("div", null, 
+                                                React.createElement("img", {src: this.props.picture.url, alt: "", className: "img-fluid"})
+                                            )
+                                        ), 
+                                        React.createElement("div", {className: "col-5 vcenter"}, 
+                                            list_board
+                                        )
+                                    )
+                                )
+                            ), 
+                        React.createElement(ModalFooter, null, 
+                            React.createElement(Button, {color: "secondary", onClick: this.toggle}, "Cancel")
+                        )
+                    )
+                )
+    }
+});
+
+
+module.exports = SaveBoards
+
+},{}],3:[function(require,module,exports){
+class Masonry extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {columns: 1};
+        this.onResize = this.onResize.bind(this);
+    }
+
+    componentDidMount(){
+        this.onResize();
+        window.addEventListener('resize', this.onResize)
+    }
+
+    getColumns(w){
+        return this.props.brakePoints.reduceRight( (p, c, i) => {
+            return c < w ? p : i;
+        }, this.props.brakePoints.length) + 1;
+    }
+
+    onResize(){
+        const columns = this.getColumns(this.refs.Masonry.offsetWidth);
+        if(columns !== this.state.columns){
+            this.setState({columns: columns});
+        }
+    }
+
+    mapChildren(){
+        let col = [];
+        const numC = this.state.columns;
+        for(let i = 0; i < numC; i++){
+            col.push([]);
+        }
+        return this.props.children.reduce((p,c,i) => {
+            p[i%numC].push(c);
+            return p;
+        }, col);
+    }
+
+    render(){
+        return (
+            React.createElement("div", {className: "masonry", ref: "Masonry"}, 
+                this.mapChildren().map((col, ci) => {
+                    return (
+                        React.createElement("div", {className: "column", key: ci}, 
+                            col.map((child, i) => {
+                                return React.createElement("div", {key: i}, child)
+                            })
+                        )
+                    )
+                })
+            )
+        )
+    }
+}
+
+module.exports = Masonry;
+},{}],4:[function(require,module,exports){
+var Button = Reactstrap.Button;
+
+function isIncluded(picture, listPicture){
+
+    for(var i=0; i < listPicture.length; i++){
+        if(picture.identification === listPicture[i].identification){
+            return true;
+        }
+    }
+    return false;
+}
+
+var Picture = React.createClass({displayName: "Picture",
+
+    getInitialState: function(){
+        console.log(this.props.picture)
+        return {
+            isDisplay: !isIncluded(this.props.picture, this.props.pictures),
+            picturePageUrl: '/picture/' + this.props.picture.identification,
+        }
+    },
+
+    remove: function(){
+        $.ajax({
+            method: "POST",
+            url: '/picture/api/picutes-delet/',
+            dataType: 'json',
+            data: {'identification_board': this.props.board_id,
+                   'identification_picture': this.props.picture.identification},
+            async:false,
+        })
+
+
+        this.props.updatePicture()
+    },
+
+    attach: function(){
+        this.props.handlerAttach(this.props.picture)
+    },
+
+    edit: function(){
+    },
+
+    render: function(){
+        var remove_btn, attach_btn, edit_btn
+
+        if(!this.props.is_auth){
+            actions = React.createElement("span", null)
+        }
+        else{
+            if(this.props.is_auth_board){
+                remove_btn = React.createElement(Button, {color: "danger", size: "sm", onClick: this.remove}, "REMOVE")
+            }
+            else{
+                attach_btn = React.createElement(Button, {onClick: this.attach, size: "sm"}, "SAVE")
+            }
+
+            // if(this.props.auth_username == this.props.picture.user){
+            //     edit_btn = <Button onClick={this.edit} size="sm">edit</Button>
+            // }
+        }
+
+        if(this.state.isDisplay){
+            return(
+                React.createElement("div", null, 
+                    React.createElement("div", {className: "img-in-grid"}, 
+                        React.createElement("a", {href: this.state.picturePageUrl}, 
+                            React.createElement("img", {src: this.props.picture.url, alt: "", className: "img-fluid"})
+                        )
+                    ), 
+                    React.createElement("div", {className: "buttons-from-block"}, 
+                        remove_btn, 
+                        attach_btn, 
+                        edit_btn
+                    )
+                )
+            )
+        }
+        else{
+            return React.createElement("div", null)
+        }
+    }
+});
+
+module.exports = Picture
+},{}]},{},[1]);

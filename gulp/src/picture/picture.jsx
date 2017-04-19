@@ -1,6 +1,7 @@
 var Button          = Reactstrap.Button
 var AttachPicture   = require('../pictures/modules/attach_picture.jsx')
 var SimilarPicture  = require('../pictures/modules/picture.jsx')
+var Masonry         = require('../pictures/modules/masonry.jsx')
 
 var Picture = React.createClass({
     getIdentificationPicture: function(){
@@ -47,7 +48,7 @@ var Picture = React.createClass({
 
         return pictureData
     },
-    
+
     clickSave: function(){
         this.setState({
             savingPicture: this.state.pictureData,
@@ -61,6 +62,7 @@ var Picture = React.createClass({
             isOpenAttach: false,
             savingPicture: {},
             pictures: this.getSimilarPicture(this.getIdentificationPicture()),
+            brakePoints: [350, 500, 750, 1000]
         }
     },
 
@@ -83,9 +85,9 @@ var Picture = React.createClass({
         var userUrl = '/user/' + this.state.pictureData.user + '/boards/'
 
         var self = this
-        var listPictures = this.state.pictures.map(function(s, i){            
+        var listPictures = this.state.pictures.map(function(s, i){
             return <SimilarPicture picture={s} key={i} pictures={(self.state.pictures.slice(i+1)).concat([self.state.pictureData])}
-                                                is_auth={!(self.props.userAuth === undefined)} 
+                                                is_auth={!(self.props.userAuth === undefined)}
                                                 is_auth_board={false}
                                                 handlerAttach={self.setSavingPicture}
                                                 board_id={undefined}
@@ -124,11 +126,11 @@ var Picture = React.createClass({
                         </div>
                     </div>
                 </div>
-                
 
-                <div className='masonry'>
+
+                <Masonry brakePoints={this.state.brakePoints}>
                     {listPictures}
-                </div>
+                </Masonry>
             </div>
         )
     }

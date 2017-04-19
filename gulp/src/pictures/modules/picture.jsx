@@ -29,7 +29,7 @@ var Picture = React.createClass({
                    'identification_picture': this.props.picture.identification},
             async:false,
         })
-        
+
 
         this.props.updatePicture()
     },
@@ -49,23 +49,25 @@ var Picture = React.createClass({
         }
         else{
             if(this.props.is_auth_board){
-                remove_btn = <Button color="danger" size="sm" onClick={this.remove}>REMOVE</Button> 
+                remove_btn = <Button color="danger" size="sm" onClick={this.remove}>REMOVE</Button>
             }
             else{
                 attach_btn = <Button onClick={this.attach} size="sm">SAVE</Button>
             }
 
             // if(this.props.auth_username == this.props.picture.user){
-            //     edit_btn = <Button onClick={this.edit} size="sm">edit</Button> 
+            //     edit_btn = <Button onClick={this.edit} size="sm">edit</Button>
             // }
         }
-        
+
         if(this.state.isDisplay){
             return(
-                <div className='item'>
-                    <a href={this.state.picturePageUrl}>
-                        <img src={this.props.picture.url} alt="" className="img-fluid" />
-                    </a>
+                <div>
+                    <div className="img-in-grid">
+                        <a href={this.state.picturePageUrl}>
+                            <img src={this.props.picture.url} alt="" className="img-fluid" />
+                        </a>
+                    </div>
                     <div className='buttons-from-block'>
                         {remove_btn}
                         {attach_btn}

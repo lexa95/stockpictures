@@ -6,29 +6,69 @@
 
 {% block content %}
     <div class='text-center'>
-        <h2>INFORMATION PROFILE</h2>
+        <div style="width: 500px; display: inline-block;">
+            <h2>INFORMATION PROFILE</h2>
 
-        <div>
-            USERNAME: {{ user.username}}
-        </div>
-        <div>
-            FIRST NAME: {{ user.first_name}}
-        </div>
-        <div>
-            LAST NAME: {{ user.last_name}}
-        </div>
-        <div>
-            EMAIL: {{ user.email}}
-        </div>
-        <div>
-        <div>
-            DATE OF BIRTH: {{ profile.date_of_birth}}
-        </div>
-        <div>
-            PHOTO:
-            <div class="image_profile_circle block-inline align-middle" style="background-image: url({{profile.photo.url}});">
+            <div class="board-inform-item">
+                <div class="board-inform-item-left">
+                    <h6>Username: </h6>
+                </div>
+                <div class="board-inform-item-right">
+                    <h6>{{ user.username }}</h6>
+                </div>
             </div>
+
+            <div class="board-inform-item">
+                <div class="board-inform-item-left">
+                    <h6>First name: </h6>
+                </div>
+                <div class="board-inform-item-right">
+                    <h6>{{ user.first_name}}</h6>
+                </div>
+            </div>
+
+            <div class="board-inform-item">
+                <div class="board-inform-item-left">
+                    <h6>Last name: </h6>
+                </div>
+                <div class="board-inform-item-right">
+                    <h6>{{ user.last_name}}</h6>
+                </div>
+            </div>
+
+            <div class="board-inform-item">
+                <div class="board-inform-item-left">
+                    <h6>Email: </h6>
+                </div>
+                <div class="board-inform-item-right">
+                    <h6>{{ user.email}}</h6>
+                </div>
+            </div>
+
+            <div class="board-inform-item">
+                <div class="board-inform-item-left">
+                    <h6>DATE OF BIRTH: </h6>
+                </div>
+                <div class="board-inform-item-right">
+                    <h6>{{ profile.date_of_birth}}</h6>
+                </div>
+            </div>
+
+            <div class="board-inform-item">
+                <div class="board-inform-item-left">
+                    <h6>PHOTO:</h6>
+                </div>
+                <div class="board-inform-item-right">
+                    {% if profile.photo.url %}
+                        <div class="image_profile_circle block-inline align-middle" style="background-image: url({{profile.photo.url}}); height: 140px; width: 140px;">
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <a href={% url 'edit_profile' %}>
+                <button type="button" class="btn btn-danger btn-sm">EDIT</button>
+            </a>
         </div>
-        <a href={% url 'edit_profile' %}><i class="fa fa-pencil" aria-hidden="true"></i></i>EDIT</a>
     </div>
 {% endblock %}

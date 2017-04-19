@@ -14,8 +14,8 @@ gulp.task 'react-board-app', ->
 		.transform('loose-envify', {'process.env.NODE_ENV': 'production'})
 		.bundle()
 		.pipe source 'board.js'
-		.pipe do buffer
-		.pipe do uglify
+		#.pipe do buffer
+		#.pipe do uglify
 		.pipe rename (path) ->
 			path.dirname += '/../../project/static/static_files/js'
 		.pipe gulp.dest './project'
@@ -27,12 +27,12 @@ gulp.task 'react-like-app', ->
 		.transform('loose-envify', {'process.env.NODE_ENV': 'production'})
 		.bundle()
 		.pipe source 'like.js'
-		.pipe do buffer
-		.pipe do uglify
+		#.pipe do buffer
+		#.pipe do uglify
 		.pipe rename (path) ->
 			path.dirname += '/../../project/static/static_files/js'
 		.pipe gulp.dest './project'
-		
+
 gulp.task 'react-preview-profile-app', ->
 	process.env.NODE_ENV = 'production'
 	browserify  ("src/profile/profile_preview.jsx")
@@ -40,8 +40,8 @@ gulp.task 'react-preview-profile-app', ->
 		.transform('loose-envify', {'process.env.NODE_ENV': 'production'})
 		.bundle()
 		.pipe source 'profile_preview.js'
-		.pipe do buffer
-		.pipe do uglify
+		#.pipe do buffer
+		#.pipe do uglify
 		.pipe rename (path) ->
 			path.dirname += '/../../project/static/static_files/js'
 		.pipe gulp.dest './project'
@@ -53,11 +53,11 @@ gulp.task 'react-boards-app', ->
 		.transform('loose-envify', {'process.env.NODE_ENV': 'production'})
 		.bundle()
 		.pipe source 'boards.js'
-		.pipe do buffer
-		.pipe do uglify
+		#.pipe do buffer
+		#.pipe do uglify
 		.pipe rename (path) ->
 			path.dirname += '/../../project/static/static_files/js'
-		.pipe gulp.dest './project'	
+		.pipe gulp.dest './project'
 
 gulp.task 'react-pictures-app', ->
 	process.env.NODE_ENV = 'production'
@@ -65,11 +65,11 @@ gulp.task 'react-pictures-app', ->
 		.transform reactify
 		.bundle()
 		.pipe source 'pictures.js'
-		.pipe do buffer
-		.pipe do uglify
+		#.pipe do buffer
+		#.pipe do uglify
 		.pipe rename (path) ->
 			path.dirname += '/../../project/static/static_files/js'
-		.pipe gulp.dest './project'	
+		.pipe gulp.dest './project'
 
 gulp.task 'react-picture-app', ->
 	process.env.NODE_ENV = 'production'
@@ -77,11 +77,33 @@ gulp.task 'react-picture-app', ->
 		.transform reactify
 		.bundle()
 		.pipe source 'picture.js'
-		.pipe do buffer
-		.pipe do uglify
+		#.pipe do buffer
+		#.pipe do uglify
 		.pipe rename (path) ->
 			path.dirname += '/../../project/static/static_files/js'
-		.pipe gulp.dest './project'	
+		.pipe gulp.dest './project'
+
+gulp.task 'react-picture-add', ->
+	process.env.NODE_ENV = 'production'
+	browserify  ("src/picture_add/add.jsx")
+		.transform reactify
+		.bundle()
+		.pipe source 'add.js'
+		#.pipe do buffer
+		#.pipe do uglify
+		.pipe rename (path) ->
+			path.dirname += '/../../project/static/static_files/js'
+		.pipe gulp.dest './project'
+
+gulp.task 'all-pictures', ->
+	process.env.NODE_ENV = 'production'
+	browserify  ("src/all-pictures/all-pictures.jsx")
+		.transform reactify
+		.bundle()
+		.pipe source 'all-pictures.js'
+		.pipe rename (path) ->
+			path.dirname += '/../../project/static/static_files/js'
+		.pipe gulp.dest './project'
 
 gulp.task 'watch', ->
 	do livereload.listen
@@ -92,5 +114,7 @@ gulp.task 'watch', ->
 	gulp.watch 'src/boards/*.jsx', ['react-boards-app']
 	gulp.watch 'src/boards/*/*.jsx', ['react-boards-app']
 	gulp.watch 'src/picture/*.jsx', ['react-picture-app']
+	gulp.watch 'src/picture_add/*.jsx', ['react-picture-add']
+	gulp.watch 'src/all-pictures/*.jsx', ['all-pictures']
 
-gulp.task 'default', ['watch', 'react-board-app', 'react-like-app', 'react-preview-profile-app', 'react-boards-app', 'react-picture-app']
+gulp.task 'default', ['watch', 'react-board-app', 'react-like-app', 'react-preview-profile-app', 'react-boards-app', 'react-picture-app', 'react-picture-add', 'all-pictures']

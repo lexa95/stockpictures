@@ -52,7 +52,7 @@ class SubscriptionBoardUser(APIView):
             username = request.GET['username']
             board = Board.objects.filter(subscription__user__username=username)
 
-            serializer = BoardSerializer(board, many=True, 
+            serializer = BoardSerializer(board, many=True,
                                          context={'request': request})
             return Response(serializer.data)
 

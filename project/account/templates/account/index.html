@@ -1,9 +1,16 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
+
 {% block title %}
     STOCKIMAGES
 {% endblock %}
 
 {% block content %}
-    <h2>Index page</h2>
+
+    <div id="pictures">
+
+    </div>
+
+    <script src="{% static "js/all-pictures.js" %}"></script>
 {% endblock %}

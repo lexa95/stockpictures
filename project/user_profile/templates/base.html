@@ -26,7 +26,7 @@
         {% endblock %}
 
     </head>
-    
+
     <body>
         {% block head %}
 
@@ -34,19 +34,16 @@
                 <div class="head-nav-item align-middle text-left">
                     <a href="{% url 'index' %}"><h3 class="none-margin">LOGO</h3></a>
                 </div>
-                <div class="head-nav-item">
-
-                </div>
                 <div class="head-nav-item align-middle text-right">
                     {% if user.is_authenticated %}
-                        <div class='block-inline align-middle'>
-                            <a href={% url 'profile' %}> <h6 class="none-margin">PROFILE</h6></a>
+                        <div class='block-inline align-middle nav-item-top'>
+                            <a href={% url 'profile' %}> <span class="none-margin">PROFILE</span></a>
                         </div>
-                        <div class='block-inline align-middle'>
-                            <a href={% url 'boards' user.username%}> <h6 class="none-margin">BOARD</h6></a>
+                        <div class='block-inline align-middle nav-item-top'>
+                            <a href={% url 'boards' user.username%}> <span class="none-margin">BOARD</span></a>
                         </div>
-                        <div class='block-inline align-middle'>
-                            <a href={% url 'logout' %}> <h6 class="none-margin">LOGOUT</h6></a>
+                        <div class='block-inline align-middle nav-item-top'>
+                            <a href={% url 'logout' %}> <span class="none-margin">LOGOUT</span></a>
                         </div>
                     {% else %}
                         <div>
@@ -57,11 +54,11 @@
                 </div>
             </div>
         {% endblock %}
-        
+
         <div style="margin-top: 75px;">
             {% block content %}
             {% endblock %}
         </div>
-        
+
     </body>
 </html>

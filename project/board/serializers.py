@@ -1,6 +1,13 @@
 from rest_framework import serializers
 from .models import Subscription, Board
-from picture.models import InBoard
+from picture.models import InBoard, Picture
+import json
+
+
+class PictureUrlSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Picture
+        fields = ('url', )
 
 
 class BoardSerializer(serializers.ModelSerializer):
@@ -9,11 +16,12 @@ class BoardSerializer(serializers.ModelSerializer):
     count_follower = serializers.SerializerMethodField()
     is_editing = serializers.SerializerMethodField()
     is_subscription = serializers.SerializerMethodField()
+    images = serializers.SerializerMethodField()
 
     class Meta:
         model = Board
         fields = ('username', 'name', 'cover', 'secret', 'identification',
-                  'count_pictures', 'count_follower', 'is_editing', 'is_subscription')
+                  'count_pictures', 'count_follower', 'is_editing', 'is_subscription', 'images')
 
     def get_count_pictures(self, obj):
         return InBoard.objects.filter(board=obj).count()
@@ -29,6 +37,12 @@ class BoardSerializer(serializers.ModelSerializer):
         request = self.context.get("request")
         user = request.user
         return Subscription.objects.filter(user=user, board=obj).exists()
+
+    def get_images(self, obj):
+        print(obj)
+        images = list(Picture.objects.filter(inboard__board=obj)[:4])
+        print(PictureUrlSerializer(images, many=True))
+        return PictureUrlSerializer(images, many=True).data
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):

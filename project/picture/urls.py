@@ -16,6 +16,7 @@ urlpatterns = [
     url(r'^api/picture-parse/', ParsePictureFromAtherSite.as_view()),
     url(r'^api/picture-add/', AddPictureFromAtherSite.as_view()),
     url(r'^api/similar-pictures/', SimilarPictures.as_view()),
+    url(r'^api/last-pictures/', LastPictures.as_view()),
 
     url(r'^add/$', add, name='add'),
     url(r'^(?P<username>[-\w]+)/$', pictures, name='picture')

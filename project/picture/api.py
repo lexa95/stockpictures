@@ -10,6 +10,8 @@ from board.models import Board, Subscription
 from .serializers import *
 from bs4 import BeautifulSoup
 import requests
+from django.utils.encoding import smart_str
+from django.conf import settings
 
 
 class PicturesFromBoard(APIView):
@@ -84,12 +86,6 @@ class PicturesFromBoards(APIView):
             range_left = int(request.GET['range_left'])
             rande_right = int(request.GET['rande_right'])
 
-            # pictures = Picture.objects.filter(
-            #     inboard__board__user__username=username
-            #     ).distinct().order_by('-inboard__date')[range_left:rande_right]
-
-            # serializer = PictureSerializer(pictures, many=True)
-
             inboards = InBoard.objects.filter(
                 board__user__username=username
             ).order_by('-date')[range_left:rande_right]
@@ -113,7 +109,7 @@ class PicturesFromSubBoards(APIView):
 
             pictures = Picture.objects.filter(
                 inboard__board__subscription__user__username=username
-                ).order_by('-inboard__board__subscription__date')[range_left:rande_right]
+            ).order_by('-inboard__board__subscription__date')[range_left:rande_right]
 
             serializer = PictureSerializer(pictures, many=True)
             return Response(serializer.data)
@@ -133,7 +129,7 @@ class CreatedPictures(APIView):
 
             pictures = Picture.objects.filter(
                 user__username=username
-                ).distinct().order_by('-date')[range_left:rande_right]
+            ).distinct().order_by('-date')[range_left:rande_right]
 
             serializer = PictureSerializer(pictures, many=True)
             return Response(serializer.data)
@@ -189,14 +185,19 @@ class ParsePictureFromAtherSite(APIView):
 
     def get(self, request):
         resource_url = request.GET['resource_url']
+        print(resource_url)
+        settings.DRIVER.get(resource_url)
 
-        r = requests.get(resource_url, auth=('user', 'pass'))
-        soup = BeautifulSoup(r.text, 'html.parser')
+        elems = settings.DRIVER.find_elements_by_tag_name("img")
+        normal_elems = []
+        for e in elems:
+            location = e.location
+            size = e.size
+            if size['height'] >= 200 and size['width'] >= 200:
+                normal_elems.append(e.get_attribute("src"))
 
-        collect = soup.find('body')
-        images = collect.findAll('img')
-
-        return Response({'src': [img.get('src') for img in images]})
+        print(normal_elems)
+        return Response({'src': [e for e in normal_elems]})
 
 
 class AddPictureFromAtherSite(APIView):
@@ -237,11 +238,19 @@ class SimilarPictures(APIView):
 
     def get(self, requests):
         picture_identification = requests.GET['identification']
-        print(picture_identification)
         boards = Board.objects.filter(
             inboard__picture__identification=picture_identification)
 
         pictures = Picture.objects.filter(inboard__board__in=boards)
-        print(pictures)
+        serializer = PictureSerializer(pictures, many=True)
+        return Response(serializer.data)
+
+
+class LastPictures(APIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+
+    def get(self, requests):
+
+        pictures = Picture.objects.all()[:30]
         serializer = PictureSerializer(pictures, many=True)
         return Response(serializer.data)

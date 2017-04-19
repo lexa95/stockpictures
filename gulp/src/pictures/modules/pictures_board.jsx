@@ -1,6 +1,7 @@
 var Picture = require('../modules/picture.jsx')
 var AddPicture = require('../modules/add_picture.jsx')
 var AttachPicture = require('../modules/attach_picture.jsx')
+var Masonry = require('../modules/masonry.jsx')
 
 
 var Pictures = React.createClass({
@@ -11,13 +12,14 @@ var Pictures = React.createClass({
         var isAuth = userAuth.username !== undefined
         var isAuthBoard = this.props.isAuthBoard(this.props.userPage, userAuth)
 
-        return { 
+        return {
             pictures: pictures,
             isAuth: isAuth,
             isAuthBoard: isAuthBoard,
             savingPicture: {},
             userAuth: userAuth,
-            isOpenAttach: false
+            isOpenAttach: false,
+            brakePoints: [350, 500, 750, 1000]
         }
     },
 
@@ -46,7 +48,7 @@ var Pictures = React.createClass({
         self = this
         var listPictures = this.state.pictures.map(function(s, i){
             return <Picture picture={s} key={i} pictures={self.state.pictures.slice(i+1)}
-                                                is_auth={self.state.isAuth} 
+                                                is_auth={self.state.isAuth}
                                                 is_auth_board={self.state.isAuthBoard}
                                                 handlerAttach={self.setSavingPicture}
                                                 board_id={self.props.identification}
@@ -59,10 +61,9 @@ var Pictures = React.createClass({
                                     user_auth   ={this.state.userAuth}
                                     isOpen      ={this.state.isOpenAttach}/>
 
-                    <div className="masonry">
-                        {addPicture}
+                    <Masonry brakePoints={this.state.brakePoints}>
                         {listPictures}
-                    </div>
+                    </Masonry>
                </div>
     }
 });
